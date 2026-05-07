@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Depth Lattice</title>
+    <script src="assets/js/marked.min.js"></script>
+    <script src="assets/js/three.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="active">Ask AI</a>
+        <a href="experience.html">Experience</a>
+        <a href="person.html">Person</a>
+    </nav>
+    <canvas id="bg-canvas"></canvas>
+    <div id="ui-layer">
+        <h1>Dr. Markus Schindler</h1>
+        <h2>Ask AI about Markus</h2>
+        <div class="container">
+            <textarea id="prompt" rows="10" placeholder="Ask me anything..."></textarea>
+            <button id="submitBtn">Send to Cloud</button>
+            <strong style="color: #aaa;">Response:</strong>
+            <div id="response">Your answer will appear here...</div>
+        </div>
+    </div>
+
+    <script>
+        // === AI LOGIC ===
+        const submitBtn = document.getElementById('submitBtn');
+        const promptInput = document.getElementById('prompt');
+        const responseDiv = document.getElementById('response');
+        const apiKey = "AIzaSyDRbHsH849md7W7lEO7AIXZ6FvaLWovZH4";
+        const SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Dr. Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following CV data as your only source of truth:
+{ 
+    "person": {
+    "name": "Dr. Markus Schindler"
+    },
+    "contact": {
+        "email": "schindlerdrmarkus@gmail.com",
+        "socials": ["LinkedIn", "GitHub"]
+    },
+    "languages": [
+    { "language": "German", "proficiency": "Native" },
+    { "language": "English", "proficiency": "Professional Working Proficiency" }
+            ],
+    "summary": "Chemist with 14 years of experience in the chemical industry, specialized in data-driven process optimization using Lean Six Sigma, Machine Learning, and process simulation. Seeking to transition into a Data Analyst or Data Scientist role.",
+    "skills": {
+    "languages_tools": ["C", "Python", "MatLab", "SQL", "Git", "Docker"],
+    "libraries_frameworks": ["NumPy", "Pandas", "PyTorch", "scikit-learn", "Kivy", "TensorFlow", "Matplotlib", "Seaborn", "Pomegranate"],
+    "statistics": ["Null Hypothesis", "Causal Inference", "Monte Carlo", "Analysis of Variance", "Time Series", "Normality Test"],
+    "software": ["MS Word", "MS Excel", "MS PowerPoint", "MS Word", "Minitab"],
+    "os": ["Linux", "Unix", "Windows"]
+    },
+    "experience": [
+        {
+        "role": "Sr Research Scientist",
+        "company": "Grace GmbH",
+        "location": "Worms",
+        "period": "04.2013 – 03.2017",
+        "responsibilities": [
+            "Laboratory management of 5 staff members",
+            "Process optimization via Lean Six Sigma",
+            "Global technical customer support for Adsorbents business",
+            "Subject Matter Expert for Adsorbents"
+        ]
+        },
+        {
+        "role": "R&D Chemist",
+        "company": "Grace GmbH",
+        "location": "Worms",
+        "period": "08.2011 – 03.2013",
+        "responsibilities": [
+            "Analysis of ion-exchange and zeolite crystallization",
+            "Research on thermal post-treatment of FCC catalysts",
+            "Validation of zeolite modifications for light oil conversion",
+            "Efficiency improvements for catalyst product development"
+        ]
+        }
+    ],
+    "education": [
+        {
+        "degree": "PhD (Dr. rer. nat.)",
+        "field": "Chemistry / Chemical Engineering",
+        "institution": "TU of Kaiserslautern",
+        "period": "2006 – 2011",
+        "thesis": "Investigations into the selective adsorption of carbon dioxide from gas mixtures on metal-organic coordination polymers"
+        },
+        {
+        "degree": "Diploma in Chemistry",
+        "field": "Chemistry",
+        "institution": "TU of Kaiserslautern",
+        "period": "2000 – 2006"
+        }
+    ],
+    "certifications": [
+        "Lean Six Sigma – Green Belt",
+        "Project Management Training PDI",
+        "Ninth-House – Front Line Leadership"
+    ],
+    "github projects": [
+        "FluxCat is a Kivy-based Python GUI that simulates the transient behavior of a fixed-bed catalytic reactor. It uses finite-volume algorithms to determine bed performance under poisoning conditions.",
+        "XrdQty is a lightweight Python tool that simulates X-ray diffraction pattern for the use in training a CNN. The trained model can be used to quantify mineral phases.",
+        "StkView serves as foundational data analysis for stocks. Descriptive statistics, Monte-Carlo, and LSTM are used to characterize different stocks at different time frames.",
+        "CausCrypto performs a causal inference analysis proving the correlation of large cap crypto coins to altcoins. A bayesian network allows to figure the related conditional probabilities. The propensity score estimation serves to analyze the impact of a different momentum strategy in crypto assets."
+    ]
+}`;
+        submitBtn.addEventListener('click', async () => {
+            const userPrompt = promptInput.value.trim();
+            if (!userPrompt) return alert("Please enter a question!");
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Thinking...";
+            responseDiv.innerText = "Processing...";
+            try {
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                        contents: [{ parts: [{ text: userPrompt }] }]
+                    })
+                });
+                const data = await response.json();
+                responseDiv.innerHTML = marked.parse(data.candidates[0].content.parts[0].text);
+            } catch (error) {
+                responseDiv.innerText = "Error: " + error.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send to Cloud";
+            }
+        });
+
+        // === 3D BACKGROUND LOGIC ===
+        const canvas = document.querySelector('#bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        function createCircleTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64; canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            ctx.arc(32, 32, 30, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        const gridSize = 10; 
+        const spacing = 2;
+        const geometry = new THREE.BufferGeometry();
+        const positions = [];
+        const colors = [];
+        const baseColor = new THREE.Color(0x008080); 
+        const highlightColor = new THREE.Color(0x4dcdcd);
+
+        for (let x = 0; x < gridSize; x++) {
+            for (let y = 0; y < gridSize; y++) {
+                for (let z = 0; z < gridSize; z++) {
+                    positions.push((x - gridSize/2) * spacing, (y - gridSize/2) * spacing, (z - gridSize/2) * spacing);
+                    colors.push(baseColor.r, baseColor.g, baseColor.b);
+                }
+            }
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.3,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            map: createCircleTexture(),
+            alphaTest: 0.5
+        });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+        camera.position.set(15, 15, 15); 
+        camera.lookAt(0, 0, 0);
+        points.position.x = 2;
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(points);
+            const colorAttr = geometry.attributes.color; 
+            const posAttr = geometry.attributes.position;
+
+            for (let i = 0; i < colorAttr.count; i++) {
+                const vx = posAttr.getX(i) + points.position.x;
+                const vy = posAttr.getY(i) + points.position.y;
+                const vz = posAttr.getZ(i) + points.position.z;
+                const dist = Math.sqrt(Math.pow(camera.position.x - vx, 2) + Math.pow(camera.position.y - vy, 2) + Math.pow(camera.position.z - vz, 2));
+                let fade = 1.0 - (dist / 40);
+                fade = Math.max(0.2, Math.min(1.0, fade));
+                colorAttr.setXYZ(i, baseColor.r * fade, baseColor.g * fade, baseColor.b * fade);
+            }
+
+            if (intersects.length > 0) {
+                const index = intersects[0].index;
+                colorAttr.setXYZ(index, highlightColor.r, highlightColor.g, highlightColor.b);
+            } 
+            colorAttr.needsUpdate = true;
+            points.rotation.y += 0.001;
+            points.rotation.x += 0.0005;
+            renderer.render(scene, camera);
+        }
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        animate();
+    </script>
+</body>
+</html>
