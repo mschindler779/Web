@@ -16,7 +16,7 @@
     </nav>
     <canvas id="bg-canvas"></canvas>
     <div id="ui-layer">
-        <h1>Dr. Markus Schindler</h1>
+        <h1>Markus Schindler</h1>
         <h2>Ask AI about Markus</h2>
         <div class="container">
             <textarea id="prompt" rows="10" placeholder="Ask me anything..."></textarea>
@@ -31,14 +31,14 @@
         const submitBtn = document.getElementById('submitBtn');
         const promptInput = document.getElementById('prompt');
         const responseDiv = document.getElementById('response');
-        const apiKey = "AIzaSyDRbHsH849md7W7lEO7AIXZ6FvaLWovZH4";
-        const SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Dr. Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following CV data as your only source of truth:
+        const apiKey = "AIzaSyBUhzk37wJioGqMIL7Utj9u55ciC17o6WE";
+        const SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following resume data as your only source of truth:
 { 
     "person": {
     "name": "Dr. Markus Schindler"
     },
     "contact": {
-        "email": "schindlerdrmarkus@gmail.com",
+        "email": "schindler-markus@freenet.de",
         "socials": ["LinkedIn", "GitHub"]
     },
     "languages": [
