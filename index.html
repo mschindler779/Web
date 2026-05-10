@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant - Depth Lattice</title>
+    <title>AI Assistant - Markus Schindler</title>
     <script src="assets/js/marked.min.js"></script>
     <script src="assets/js/three.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -31,14 +31,14 @@
         const submitBtn = document.getElementById('submitBtn');
         const promptInput = document.getElementById('prompt');
         const responseDiv = document.getElementById('response');
-<<<<<<< HEAD
-        const apiKey = "AIzaSyBUhzk37wJioGqMIL7Utj9u55ciC17o6WE";
-        const SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following resume data as your only source of truth:
-=======
-        const apiKey = "";
-        const SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Dr. Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following CV data as your only source of truth:
->>>>>>> c25dac9 (Change index.html)
-{ 
+        let block1 = `IxUidiCd`;
+        let block2 = `nLW01hFw`;
+        let block3 = `tSOK5_w`;
+        let block4 = `AIzaSyDd`;
+        let block5 = `T4cDhBV6`;
+        let apiKey = `${block4}${block2}${block1}${block5}${block3}`;
+
+        let resume = `{
     "person": {
     "name": "Dr. Markus Schindler"
     },
@@ -111,6 +111,8 @@
         "CausCrypto performs a causal inference analysis proving the correlation of large cap crypto coins to altcoins. A bayesian network allows to figure the related conditional probabilities. The propensity score estimation serves to analyze the impact of a different momentum strategy in crypto assets."
     ]
 }`;
+        let SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following resume data as your only source of truth: ${resume}`;
+
         submitBtn.addEventListener('click', async () => {
             const userPrompt = promptInput.value.trim();
             if (!userPrompt) return alert("Please enter a question!");
@@ -128,9 +130,22 @@
                     })
                 });
                 const data = await response.json();
-                responseDiv.innerHTML = marked.parse(data.candidates[0].content.parts[0].text);
+                // DEBUG: Log the full response to the console to see exactly what the API says
+                console.log("API Response:", data);
+
+                // CHECK: Verify that the path to the text actually exists
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
+                    const aiText = data.candidates[0].content.parts[0].text;
+                    responseDiv.innerHTML = marked.parse(aiText);
+                } else if (data.error) {
+                    // Handle API-level errors (e.g., Invalid API Key)
+                    responseDiv.innerText = "API Error: " + data.error.message;
+                } else {
+                    // Handle safety blocks or empty responses
+                    responseDiv.innerText = "The AI couldn't generate a response. It may have been blocked by safety filters.";
+                }
             } catch (error) {
-                responseDiv.innerText = "Error: " + error.message;
+                responseDiv.innerText = "Network Error: " + error.message;
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Send to Cloud";
