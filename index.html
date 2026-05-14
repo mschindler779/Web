@@ -13,6 +13,7 @@
         <a href="index.html" class="active">Ask AI</a>
         <a href="experience.html">Experience</a>
         <a href="person.html">Person</a>
+        <a href="portfolio.html">Portfolio</a>
     </nav>
     <canvas id="bg-canvas"></canvas>
     <div id="ui-layer">
@@ -39,78 +40,171 @@
         let apiKey = `${block4}${block2}${block1}${block5}${block3}`;
 
         let resume = `{
-    "person": {
-    "name": "Dr. Markus Schindler"
+        "person": {
+    "name": "Dr. Markus Schindler",
+    "title": "Quantitative Data Scientist | PhD"
+  },
+  "contact": {
+    "email": "schindler-markus@freenet.de",
+    "socials": {
+      "linkedin": "linkedin.com/in/dr-markus-schindler",
+      "github": "github.com/markus-schindler"
+    }
+  },
+  "languages": [
+    {
+      "language": "German",
+      "proficiency": "Native"
     },
-    "contact": {
-        "email": "schindler-markus@freenet.de",
-        "socials": ["LinkedIn", "GitHub"]
-    },
-    "languages": [
-    { "language": "German", "proficiency": "Native" },
-    { "language": "English", "proficiency": "Professional Working Proficiency" }
-            ],
-    "summary": "Chemist with 14 years of experience in the chemical industry, specialized in data-driven process optimization using Lean Six Sigma, Machine Learning, and process simulation. Seeking to transition into a Data Analyst or Data Scientist role.",
-    "skills": {
-    "languages_tools": ["C", "Python", "MatLab", "SQL", "Git", "Docker"],
-    "libraries_frameworks": ["NumPy", "Pandas", "PyTorch", "scikit-learn", "Kivy", "TensorFlow", "Matplotlib", "Seaborn", "Pomegranate"],
-    "statistics": ["Null Hypothesis", "Causal Inference", "Monte Carlo", "Analysis of Variance", "Time Series", "Normality Test"],
-    "software": ["MS Word", "MS Excel", "MS PowerPoint", "MS Word", "Minitab"],
-    "os": ["Linux", "Unix", "Windows"]
-    },
-    "experience": [
-        {
-        "role": "Sr Research Scientist",
-        "company": "Grace GmbH",
-        "location": "Worms",
-        "period": "04.2013 – 03.2017",
-        "responsibilities": [
-            "Laboratory management of 5 staff members",
-            "Process optimization via Lean Six Sigma",
-            "Global technical customer support for Adsorbents business",
-            "Subject Matter Expert for Adsorbents"
-        ]
-        },
-        {
-        "role": "R&D Chemist",
-        "company": "Grace GmbH",
-        "location": "Worms",
-        "period": "08.2011 – 03.2013",
-        "responsibilities": [
-            "Analysis of ion-exchange and zeolite crystallization",
-            "Research on thermal post-treatment of FCC catalysts",
-            "Validation of zeolite modifications for light oil conversion",
-            "Efficiency improvements for catalyst product development"
-        ]
-        }
+    {
+      "language": "English",
+      "proficiency": "Professional Working Proficiency"
+    }
+  ],
+  "summary": "Quantitative Data Scientist and PhD with 14 years of experience driving R&D innovation within the chemical industry. Expert in bridging the gap between physical 
+system dynamics (Chemistry/Chemical Engineering) and predictive machine learning. Specialized in developing hybrid models—combining numerical analysis and deep learning—to 
+optimize catalyst performance, reduce raw material consumption, and accelerate the R&D lifecycle in industrial settings.",
+  "skills": {
+    "programming": [
+      "Python (Expert)",
+      "C",
+      "SQL",
+      "Matlab",
+      "Git",
+      "Docker",
+      "Kivy"
     ],
-    "education": [
-        {
-        "degree": "PhD (Dr. rer. nat.)",
-        "field": "Chemistry / Chemical Engineering",
-        "institution": "TU of Kaiserslautern",
-        "period": "2006 – 2011",
-        "thesis": "Investigations into the selective adsorption of carbon dioxide from gas mixtures on metal-organic coordination polymers"
-        },
-        {
-        "degree": "Diploma in Chemistry",
-        "field": "Chemistry",
-        "institution": "TU of Kaiserslautern",
-        "period": "2000 – 2006"
-        }
+    "ml_ai_frameworks": [
+      "PyTorch",
+      "TensorFlow",
+      "scikit-learn",
+      "Pomegranate",
+      "LSTM",
+      "CNN",
+      "NN",
+      "Nearest Neighbor",
+      "XRGBoost",
+      "SVM",
+      "Causal Inference"
     ],
-    "certifications": [
-        "Lean Six Sigma – Green Belt",
-        "Project Management Training PDI",
-        "Ninth-House – Front Line Leadership"
+    "numerical_methods": [
+      "Numerical ODE/PDE Solvers",
+      "Orthogonal Collocation",
+      "Finite-Volume Method",
+      "Runge-Kutta Integration",
+      "Godunov-Splitting",
+      "Numerical Integration"
     ],
-    "github projects": [
-        "FluxCat is a Kivy-based Python GUI that simulates the transient behavior of a fixed-bed catalytic reactor. It uses finite-volume algorithms to determine bed performance under poisoning conditions.",
-        "XrdQty is a lightweight Python tool that simulates X-ray diffraction pattern for the use in training a CNN. The trained model can be used to quantify mineral phases.",
-        "StkView serves as foundational data analysis for stocks. Descriptive statistics, Monte-Carlo, and LSTM are used to characterize different stocks at different time frames.",
-        "CausCrypto performs a causal inference analysis proving the correlation of large cap crypto coins to altcoins. A bayesian network allows to figure the related conditional probabilities. The propensity score estimation serves to analyze the impact of a different momentum strategy in crypto assets."
+    "quantitative_statistics": [
+      "Monte Carlo Simulations",
+      "Time Series Analysis",
+      "Bayesian Networks",
+      "Causal Inference",
+      "Design of Experiments (DoE)",
+      "ANOVA",
+      "Hypothesis Testing",
+      "Normality Testing"
+    ],
+    "data_stack": [
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "Seaborn"
+    ],
+    "infrastructure": [
+      "Linux",
+      "Unix",
+      "Lean Six Sigma (Green Belt)",
+      "LaTeX"
     ]
-}`;
+  },
+  "experience": [
+    {
+      "role": "Sr Research Scientist",
+      "company": "Grace GmbH",
+      "location": "Worms",
+      "period": "04.2017 – present",
+      "highlights": [
+        "Accelerated the R&D discovery cycle by 30% by developing hybrid 'Physics-Informed' ML models, reducing the reliance on costly physical experiments through 
+high-fidelity simulations of high-dimensional system dynamics.",
+        "Optimized catalyst and sorbent efficiency by implementing advanced numerical schemes (Finite-Volume, Orthogonal Collocation) to solve complex transport-diffusion PDEs, 
+translating molecular-level behavior into macroscopic performance metrics.",
+        "Engineered full-stack Python toolkits for automated data preprocessing and model validation, streamlining the transition from theoretical research to industrial design 
+applications.",
+        "Engineered a predictive analytics pipeline for chemical recipe optimization, resulting in a 23% reduction in global raw material consumption and significant cost 
+savings without compromising product quality.",
+        "Bridged the gap between Lab R&D and Industrial Production by leading interdisciplinary teams to translate complex quantitative model outputs into actionable, scalable 
+manufacturing strategies."
+      ]
+    },
+    {
+      "role": "Research Scientist",
+      "company": "Grace GmbH",
+      "location": "Worms",
+      "period": "04.2013 – 03.2017",
+      "highlights": [
+        "Established data-driven quality standards for R&D processes by implementing quantitative statistical validation frameworks based on Lean Six Sigma methodologies.",
+        "Minimized experimental waste and optimized multi-variable chemical parameters by applying rigorous Design of Experiments (DoE), ensuring maximum information gain per 
+trial.",
+        "Managed a team of 5 staff members focusing on data-driven process reliability and statistical quality control.",
+        "Acted as Subject Matter Expert for complex system dynamics and global technical problem solving within the adsorbents business."
+      ]
+    },
+    {
+      "role": "R&D Chemist",
+      "company": "Grace GmbH & Co. KG",
+      "location": "Worms",
+      "period": "08.2011 – 03.2013",
+      "highlights": [
+        "Pioneered the modeling of complex phase transformations and thermal kinetics in zeolite ion-exchange, optimizing porosity generation for high-performance chemical 
+applications.",
+        "Enhanced Fluidized Catalytic Cracking (FCC) efficiency by designing and validating high-precision system modifications for light-oil conversion through a data-driven 
+experimental approach."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "PhD (Dr. rer. nat.)",
+      "field": "Chemistry / Chemical Engineering",
+      "institution": "TU of Kaiserslautern",
+      "period": "2006 – 2011",
+      "thesis": "Investigations into the selective adsorption of carbon dioxide from gas mixtures on metal-organic coordination polymers"
+    },
+    {
+      "degree": "Diploma in Chemistry",
+      "field": "Chemistry",
+      "institution": "TU of Kaiserslautern",
+      "period": "2000 – 2006"
+    }
+  ],
+  "certifications": [
+    "Lean Six Sigma – Green Belt",
+    "Project Management Training PDI",
+    "Ninth-House – Front Line Leadership"
+  ],
+  "github_projects": [
+    {
+      "name": "CausCrypto",
+      "description": "Causal inference analysis of cryptocurrencies using Bayesian networks, DAGs, and propensity scoring to evaluate the efficacy of different momentum 
+strategies and eliminate spurious correlations."
+    },
+    {
+      "name": "StkView",
+      "description": "Quantitative framework for stock analysis implementing Monte Carlo simulations for risk assessment and LSTM-based time-series prediction for trend 
+characterization."
+    },
+    {
+      "name": "FluxCat",
+      "description": "High-performance simulation approach for transient system behavior. Implements Finite-Volume algorithms and Runge-Kutta integration to solve coupled 
+non-linear PDEs. The GUI is based on Kivy/Python."
+    },
+    {
+      "name": "XrdQty",
+      "description": "Synthetic data generation pipeline using physical simulation to train Convolutional Neural Networks (CNN) for automated phase quantification."
+    }
+  ]
+        }`;
         let SYSTEM_PROMPT = `You are a professional AI assistant. Your goal is to answer questions about Markus Schindler. If the answer is not in the data, politely say you don't know. Use the following resume data as your only source of truth: ${resume}`;
 
         submitBtn.addEventListener('click', async () => {

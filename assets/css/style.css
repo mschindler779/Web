@@ -3,6 +3,9 @@
     --brand-color-lighted: #4dcdcd;
     --brand-black: #000000;
     --brand-dark: #4d4d4d;
+    --brand-darkgray: #aaaaaa;
+    --brand-gray:#cccccc;
+    --brand-brightgray :#dddddd;
     --brand-white: #ffffff;
 }
 
@@ -20,7 +23,7 @@ body, html {
 }
 
 a {
-    color: var(--brand-white);
+    color: var(--brand-brightgray);
     text-decoration: none;
     transition: 0.3s;
 }
@@ -31,13 +34,12 @@ a:hover {
 }
 
 a:visited {
-    color: var(--brand-white);
+    color: var(--brand-brightgray);
 }
 
 p {
     text-align: justify;
 }
-
 
 /* Navigation Bar */
 .navbar {
@@ -124,6 +126,13 @@ p {
     display: block;
 }
 
+.content-img {
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .job {
     border-left: 3px solid var(--brand-color);
     padding-left: 20px;
@@ -131,17 +140,42 @@ p {
 }
 .job-title {
     font-size: 1.4em;
-    font-weight: bold;
-    color: #fff;
+    /* font-weight: bold; */
+    color: var(--brand-white);
 } 
 .job-date {
-    color: #aaa;
+    color: var(--brand-darkgray);
     font-style: italic;
     margin-bottom: 10px;
 }
 .job-desc {
-    color: #ddd;
+    color: var(--brand-brightgray);
     line-height: 1.6;
+}
+
+.skills-category {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.category-title {
+    font-weight: bold;
+    color: var(--brand-color-lighted); /* or your primary color */
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    border-left: 4px solid var(--brand-color); /* Add a small accent line */
+    padding-left: 10px;
+}
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+.skill-item {
+    background: #333;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--brand-gray);
 }
 
 h1 {
@@ -150,7 +184,7 @@ h1 {
 }
         .tagline {
             font-size: 1.2em;
-            color: #aaa;
+            color: var(--brand-darkgray);
             margin-bottom: 30px;
         }
         .section {
@@ -159,7 +193,7 @@ h1 {
         }
         .section h3 {
             border-bottom: 1px solid var(--brand-color);
-            padding-bottom: 5px; color: #fff;
+            padding-bottom: 5px; color: var(--brand-white);
         }
         .skills-grid {
             display: grid;
@@ -176,7 +210,7 @@ h1 {
 
 h2 {
     text-align: center;
-    color: #fff;
+    color: var(--brand-white);
     text-shadow: 0 0 10px rgba(0,255,0,0.5);
 }
 
@@ -219,7 +253,7 @@ button:disabled {
     border-radius: 5px; 
     border: 1px solid #444;
     min-height: 50px;
-    color: #ddd;
+    color: var(--brand-brightgray);
     text-align: left; 
 }
 
@@ -234,7 +268,7 @@ button:disabled {
 
 #response pre {
     background: #111;
-    color: #fff;
+    color: var(--brand-white);
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
